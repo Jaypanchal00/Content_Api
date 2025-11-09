@@ -30,18 +30,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   try {
     // Dynamic blog pages
-    const db = await getDatabase();
-    const collection = db.collection<BlogPost>("blogs");
-    const publishedPosts = await collection.find({ published: true }).toArray();
+    // const db = await getDatabase();
+    // const collection = db.collection<BlogPost>("blogs");
+    // const publishedPosts = await collection.find({ published: true }).toArray();
 
-    const blogPages: MetadataRoute.Sitemap = publishedPosts.map((post) => ({
-      url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: post.updatedAt,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    }));
+    // const blogPages: MetadataRoute.Sitemap = publishedPosts.map((post) => ({
+    //   url: `${baseUrl}/blog/${post.slug}`,
+    //   lastModified: post.updatedAt,
+    //   changeFrequency: "monthly",
+    //   priority: 0.6,
+    // }));
 
-    return [...staticPages, ...blogPages];
+    return [...staticPages];
   } catch (error) {
     console.error("Error generating sitemap:", error);
     return staticPages;
