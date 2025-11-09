@@ -10,7 +10,7 @@ import nodemailer from "nodemailer";
 //   process.env.BREVO_API_KEY!
 // );
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest, response: NextResponse) {
   try {
     const { name, email, message } = await request.json();
 
@@ -89,6 +89,9 @@ export async function POST(request: NextRequest) {
 
     // Send the email using nodemailer
     await transporter.sendMail(mailOptions);
+      response.headers.set("Access-Control-Allow-Origin", "*");
+  response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
     return NextResponse.json({ success: true });
   } catch (error) {
